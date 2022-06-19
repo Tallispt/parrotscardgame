@@ -1,6 +1,5 @@
-let numCards;
-let points;
-let moves;
+let numCards, points, moves, time;
+let counter = 0;
 let gameCards = [];
 let selectedCards = [];
 let selectedInnerCards = [];
@@ -19,8 +18,10 @@ function shuffle() {
 function loadGame(){
     points = 0;
     moves = 0;
+    counter = 0;
     gameCards = [];
-    
+    time = setInterval(timer, 1000);
+
     numCards = prompt("Com quantas cartas quer jogar?")
     while (numCards%2 == 1 || (numCards <2 || numCards > 14)) {
         numCards = prompt("Escolha um número par entre 2 e 14")
@@ -88,7 +89,8 @@ function deselectCard(){
 
 function didIWin(){
     if(points == Number(numCards)/2) {
-        alert(`Parabéns! Você ganhou em ${moves*2} jogadas.`)
+        clearInterval(time)
+        alert(`Parabéns! Você ganhou em ${moves*2} jogadas e em ${counter} segundos.`)
         let value = prompt("Você quer jogar novamente? (Digite sim ou não)")
         if(value == "sim") {
             loadGame();
@@ -96,5 +98,9 @@ function didIWin(){
     }
 }
 
-loadGame();
+function timer(){ 
+    counter++;
+    document.querySelector(".timer").innerHTML = counter;
+}
 
+loadGame();

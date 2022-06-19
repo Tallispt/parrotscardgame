@@ -100,6 +100,19 @@ body {
     }
   }
 
+  .timer {
+    position: fixed;
+    top: 80px;
+    right: 0;
+    width: 20px;
+    background-color: black;
+    color: #A7E9AF;
+    padding: 10px;
+    border-radius: 5px 0  0 5px;
+    font-size: medium;
+    font-weight: bold;
+  }
+
   /* @media (min-width: 900px) {
     .cards-container { grid-template-columns: repeat(3, 1fr); }
   } */
