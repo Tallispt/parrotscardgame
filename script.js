@@ -1,7 +1,9 @@
 let numCards;
+let points;
+let moves;
 let gameCards = [];
-let selectedCars = [];
-
+let selectedCards = [];
+let selectedInnerCards = [];
 let cards = ['bobrossparrot', 
 'explodyparrot', 
 'fiestaparrot',
@@ -15,12 +17,15 @@ function shuffle() {
 }
 
 function loadGame(){
-    cards.sort(shuffle)
+    points = 0;
+    moves = 0;
+    gameCards = [];
+    
     numCards = prompt("Com quantas cartas quer jogar?")
     while (numCards%2 == 1 || (numCards <2 || numCards > 14)) {
         numCards = prompt("Escolha um número par entre 2 e 14")
     }
-
+    cards.sort(shuffle)
     for (let i = 0; i < numCards/2; i++){
         gameCards[i] = cards[i]
     }
@@ -30,7 +35,8 @@ function loadGame(){
 }
 
 function startGame(arr) {
-    let container = document.querySelector(".cards-container")
+    let container = document.querySelector(".cards-container");
+    container.innerHTML = "";
     for(let i=0; i<arr.length; i++){
         container.innerHTML  +=
         `<div class="card ${arr[i]}" onclick="flipCard(this)">
@@ -47,15 +53,48 @@ function startGame(arr) {
 }
 
 function flipCard(card) {
-    let cardInner = card.querySelector(".card-inner")
-    cardInner.classList.add("turn")
-
-    if (selected) {
-        // let all = document.querySelectorAll(".turn")
-        // all[0].classList.remove("turn")
-        // all[1].classList.remove("turn")
+    if(!card.classList.contains("selected")){
+        card.classList.add("selected");
+        selectedCards.push(card);
+        let cardInner = card.querySelector(".card-inner");
+        cardInner.classList.add("turn");
+        selectedInnerCards.push(cardInner);
+        if(selectedInnerCards.length == 2){
+            moves++;
+            compareCard();
+        } 
     }
 }
 
+function compareCard(){
+    if(selectedCards[0].classList[1] == selectedCards[1].classList[1]){
+        points++;
+        selectedCards = [];
+        selectedInnerCards = [];
+    } else {
+        setTimeout(deselectCard, 1000);
+    }
+    didIWin()
+}
 
-loadGame()
+function deselectCard(){
+    for(let i = 0; i < 2; i++){
+        selectedCards[i].classList.remove("selected");
+        selectedInnerCards[i].classList.remove("turn");
+    }
+    selectedCards = [];
+    selectedInnerCards = [];
+}
+
+function didIWin(){
+    if(points == Number(numCards)/2) {
+        alert(`Parabéns! Você ganhou em ${moves*2} jogadas.`)
+        let value = prompt("Você quer jogar novamente? (Digite sim ou não)")
+        if(value == "sim") {
+            loadGame();
+        }
+    }
+}
+
+loadGame();
+

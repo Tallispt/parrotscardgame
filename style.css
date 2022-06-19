@@ -38,6 +38,11 @@ body {
     opacity: 0.8;
   }
 
+  .selected:hover{
+    opacity: 1;
+    cursor: default;
+  }
+
   .card-selected{
     background-color: transparent;
     width: 117px;
