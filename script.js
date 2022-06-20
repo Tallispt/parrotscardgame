@@ -3,13 +3,11 @@ let counter = 0;
 let gameCards = [];
 let selectedCards = [];
 let selectedInnerCards = [];
-let cards = ['bobrossparrot', 
-'explodyparrot', 
-'fiestaparrot',
-'metalparrot',
-'revertitparrot',
-'tripletsparrot',
-'unicornparrot']
+let cards = ['bobrossparrot', 'explodyparrot', 'fiestaparrot',
+'metalparrot','revertitparrot','tripletsparrot', 'unicornparrot',
+'partyparrot', 'pirateparrot','mustacheparrot','congapartyparrot',
+'leftpartyparrot','comunistparrot','chefparrot','christmasparrot',
+'d3parrot','cigarretparrot']
 
 function shuffle() { 
     return Math.random() - 0.5; 
