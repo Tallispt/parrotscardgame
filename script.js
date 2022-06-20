@@ -48,10 +48,10 @@ function startGame(arr) {
         `<div class="card ${arr[i]}" onclick="flipCard(this)">
             <div class="card-inner">
                 <div class="card-front">
-                    <img class="parrot" src="/assets/front.png">
+                    <img class="parrot" src="assets/front.png">
                 </div>
                 <div class="card-back">
-                    <img class="parrot" src="/assets/${arr[i]}.gif">
+                    <img class="parrot" src="assets/${arr[i]}.gif">
                 </div>
             </div>
         </div>`
