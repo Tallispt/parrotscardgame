@@ -16,16 +16,20 @@ function shuffle() {
 }
 
 function loadGame(){
+    //Reset variables
     points = 0;
     moves = 0;
     counter = 0;
     gameCards = [];
     time = setInterval(timer, 1000);
 
-    numCards = prompt("Com quantas cartas quer jogar?")
+    //Ask number of cards
+    numCards = prompt("Com quantas cartas quer jogar?");
     while (numCards%2 == 1 || (numCards <2 || numCards > 14)) {
         numCards = prompt("Escolha um número par entre 2 e 14")
     }
+
+    //Shuffle cards
     cards.sort(shuffle)
     for (let i = 0; i < numCards/2; i++){
         gameCards[i] = cards[i]
@@ -35,6 +39,7 @@ function loadGame(){
     startGame(gameCards)
 }
 
+//Construct game
 function startGame(arr) {
     let container = document.querySelector(".cards-container");
     container.innerHTML = "";
@@ -54,7 +59,7 @@ function startGame(arr) {
 }
 
 function flipCard(card) {
-    if(!card.classList.contains("selected")){
+    if(!card.classList.contains("selected") && selectedCards.length != 2){
         card.classList.add("selected");
         selectedCards.push(card);
         let cardInner = card.querySelector(".card-inner");
@@ -90,17 +95,21 @@ function deselectCard(){
 function didIWin(){
     if(points == Number(numCards)/2) {
         clearInterval(time)
-        alert(`Parabéns! Você ganhou em ${moves*2} jogadas e em ${counter} segundos.`)
-        let value = prompt("Você quer jogar novamente? (Digite sim ou não)")
-        if(value == "sim") {
-            loadGame();
-        }
+        setTimeout(winAlert, 500)
     }
 }
 
 function timer(){ 
     counter++;
     document.querySelector(".timer").innerHTML = counter;
+}
+
+function winAlert(){
+    alert(`Parabéns! Você ganhou em ${moves*2} jogadas e em ${counter} segundos.`)
+    let value = prompt("Você quer jogar novamente? (Digite sim ou não)")
+    if(value == "sim") {
+        loadGame();
+    }
 }
 
 loadGame();
